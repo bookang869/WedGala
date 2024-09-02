@@ -1,33 +1,14 @@
-import React, { Component, ChangeEvent, MouseEvent } from "react";
-import { isRecord } from './record';
+import React, { Component } from "react";
+import { GuestList } from "./GuestList";
+import { AddGuest } from "./AddGuest";
+import { GuestDetails } from "./GuestDetails";
 
 
-// TODO: When you're ready to get started, you can remove all the example 
-//   code below and start with this blank application:
-
-// type WeddingAppState = {
-// }
-// 
-// /** Displays the UI of the Wedding rsvp application. */
-// export class WeddingApp extends Component<{}, WeddingAppState> {
-// 
-//   constructor(props: {}) {
-//     super(props);
-// 
-//     this.state = {};
-//   }
-//   
-//   render = (): JSX.Element => {
-//     return <div></div>;
-//   };
-// }
-
+type Page = {kind: "GuestList"} | {kind: "AddGuest"} | {kind: "GuestDetails", name: string};
 
 type WeddingAppState = {
-  name: string;  // mirror state of name text box
-  msg: string;   // message sent from server
-}
-
+  show: Page
+};
 
 /** Displays the UI of the Wedding rsvp application. */
 export class WeddingApp extends Component<{}, WeddingAppState> {
@@ -35,70 +16,38 @@ export class WeddingApp extends Component<{}, WeddingAppState> {
   constructor(props: {}) {
     super(props);
 
-    this.state = {name: "", msg: ""};
+    this.state = {show: {kind: "GuestList"}};
   }
   
   render = (): JSX.Element => {
-    return (<div>
-        <div>
-          <label htmlFor="name">Name:</label>
-          <input type="name" id="name" value={this.state.name}
-                 onChange={this.doNameChange}></input>
-          <button onClick={this.doDummyClick}>Dummy</button>
-        </div>
-        {this.renderMessage()}
-      </div>);
-  };
-
-  renderMessage = (): JSX.Element => {
-    if (this.state.msg === "") {
-      return <div></div>;
+    if (this.state.show.kind === "GuestList") {
+      return <div>
+      <GuestList onAddGuestClick={this.doAddGuestClick} onGuestClick={this.doGuestClick}></GuestList>
+      </div>;
+    } else if (this.state.show.kind === "AddGuest") {
+      return <div>
+        <AddGuest onBackClick={this.doBackClick}></AddGuest>
+      </div>;
     } else {
-      return <p>Server says: {this.state.msg}</p>;
+      return <div>
+        <GuestDetails name={this.state.show.name} onBackClick={this.doBackClick}></GuestDetails>
+      </div>;
     }
   };
 
-  doNameChange = (evt: ChangeEvent<HTMLInputElement>): void => {
-    this.setState({name: evt.target.value, msg: ""});
+  
+  // Updates the UI to show the AddGuest
+  doAddGuestClick = (): void => {
+    this.setState({show: {kind: "AddGuest"}});
   };
 
-  doDummyClick = (_evt: MouseEvent<HTMLButtonElement>): void => {
-    const name = this.state.name.trim();
-    if (name.length > 0) {
-      const url = "/api/dummy?name=" + encodeURIComponent(name);
-      fetch(url).then(this.doDummyResp)
-          .catch(() => this.doDummyError("failed to connect to server"));
-    }
+  // Updates the UI to show the GuestDetails
+  doGuestClick = (name: string): void => {
+    this.setState({show: {kind: "GuestDetails", name}});
   };
 
-  doDummyResp = (res: Response): void => {
-    if (res.status === 200) {
-      res.json().then(this.doDummyJson)
-          .catch(() => this.doDummyError("200 response is not JSON"));
-    } else if (res.status === 400) {
-      res.text().then(this.doDummyError)
-          .catch(() => this.doDummyError("400 response is not name"));
-    } else {
-      this.doDummyError(`bad status code ${res.status}`);
-    }
+  // Updates the UI to show the GuestList
+  doBackClick = (): void => {
+    this.setState({show: {kind: "GuestList"}});
   };
-
-  doDummyJson = (data: unknown): void => {
-    if (!isRecord(data)) {
-      console.error("200 response is not a record", data);
-      return;
-    }
-
-    if (typeof data.msg !== "string") {
-      console.error("'msg' field of 200 response is not a string", data.msg);
-      return;
-    }
-
-    this.setState({msg: data.msg});
-  }
-
-  doDummyError = (msg: string): void => {
-    console.error(`Error fetching /api/dummy: ${msg}`);
-  };
-
 }
