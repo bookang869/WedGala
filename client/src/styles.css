@@ -1,0 +1,76 @@
+body {
+  background-color: #ffe6e6; /* Light pink background */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center items vertically */
+  align-items: center; /* Center items horizontally */
+  height: 100vh;
+}
+
+h1 {
+  color: #333;
+  text-transform: uppercase; /* All capitalized */
+  font-size: 3em; /* Bigger font size */
+  margin-top: 20px; /* Adjust this value to move the title more towards the top */
+}
+
+button {
+  background-color: #ff66b2; /* Darker pink buttons */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #e60073; /* Even darker pink on hover */
+}
+
+input[type="text"], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+div {
+  margin: 20px;
+  text-align: center; /* Center align text inside divs */
+}
+
+ul {
+  list-style-type: none; /* Remove default bullet points */
+  padding: 0;
+}
+
+ul li::before {
+  content: "•"; /* Custom bullet point */
+  color: #ff66b2; /* Darker pink color */
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
+.summary {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  width: 80%;
+  text-align: center; /* Center align text inside summary */
+}
