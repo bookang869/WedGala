@@ -29,7 +29,7 @@
 <!-- ABOUT THE PROJECT -->
 ## WedGala
 
-[![Product Name Screen Shot][product-screenshot]](Images/intro.png)
+![Product Name Screen Shot](Images/intro.png)
 
 WedGala is a dynamic Full-Stack wedding application that allows guests to RSVP, speicfy dietary restrictions, and add additional guests.
 The application consits of a client-side React application and a server side API.
