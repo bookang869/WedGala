@@ -64,26 +64,26 @@ Make sure you have the following installed on your machine:
 
 _Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
-1. Clone the repository
+1. Clone the repository:
    ```sh
    git clone https://github.com/bookang869/WedGala.git
    ```
- 2. Switch directory
- ```sh
+ 2. Switch directory:
+   ```sh
    cd WedGala
- ```
-3. Install NPM packages
+   ```
+3. Install NPM packages:
    ```sh
    npm install
    ```
-5. Running the Application
-   Start the server
+5. Running the Application:
+   Start the server:
    ```js
    cd server
    npm start
    ```
 
-   Start the client
+   Start the client:
    ```js
    cd client
    npm start
